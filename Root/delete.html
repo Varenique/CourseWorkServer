@@ -81,7 +81,7 @@
 		}</script>
 		<script>
 		function do_put_request_403() {
-		fetch('http://127.0.0.1:8080/varvara/' + 230, {method: 'DELETE',}).then(res => console.log(res))
+		fetch('http://127.0.0.1:8080/', {method: 'DELETE',}).then(res => console.log(res))
 		}</script>
 		<script>
 		function do_put_request_200() {
@@ -89,7 +89,7 @@
 		}</script>
 		<script>
 		function do_put_request_404() {
-		fetch('http://127.0.0.1:8080/' , {method: 'DELETE',}).then(res => console.log(res))
+		fetch('http://127.0.0.1:8080/varvara/' +230, {method: 'DELETE',}).then(res => console.log(res))
 		}</script>
 		</script>
 			<script src="assets/js/jquery.min.js"></script>
