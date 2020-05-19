@@ -6,5 +6,5 @@
 #define HTTP_END_OF_LINE "\r\n"
 #define HTTP_DELIMITER " "
 
-void ReciveRequestAndSendResponse(SOCKET ClientSock);
+void recieveRequest(SOCKET ClientSock);
 void ReciveFile(char Path[], SOCKET Sock, char HTTPBuff[], int ReciveRes);

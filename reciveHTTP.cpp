@@ -22,22 +22,12 @@ BOOL DotsFound(char **PathArr, int ArrLen)
 	return FALSE;
 }
 
-void ReciveRequestAndSendResponse(SOCKET ClientSock){
+
+void recieveRequest(SOCKET ClientSock){
 
 	int Res, RecvRes;
-	//bool RequestFound = false, EndOfData = false;
-	//timeval Delay = { 1, 0 };								//ждем 1 секунду
-	//fd_set ForRead = { 1, ClientSock };
 	char *HTTPBuff = (char *)calloc(HTTP_BUFFER_SIZE + 1, sizeof(char));
 
-	//Res = select(0, &ForRead, NULL, NULL, &Delay);					//проверяем, можно ли произвести чтение, через 1 сек возвращаем управление. 
-	//if (Res == SOCKET_ERROR)
-	//{
-	//	printf("select function failed with error = %d\n", WSAGetLastError());
-	//	free(HTTPBuff);
-	//	getchar();
-	//	return;
-	//}
 
 	RecvRes = recv(ClientSock, HTTPBuff, HTTP_BUFFER_SIZE, 0);// получаем содержимое HTTP запроса (дескриптор, укзатель на буфер, размер буфера и флаги). Возращает размер полученных данных или SOCKET_ERROR
 	printf_s("%s\n", HTTPBuff);

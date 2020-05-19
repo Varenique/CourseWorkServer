@@ -8,9 +8,21 @@
 #define PATH_DELIMITER "/"
 #define MSG_DIR_IS_EMPTY "Empty folder"
 
-void CreateRoot();
-void PutFile(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff, int ReciveRes);
-void GetFile(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff);
+void checkOrCreateRoot();
+void getRequest(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff);
+void readDirectory(SOCKET Sock, char Path[]);
+BOOL isFile(char Name[]);
+void CreateFullPath(char *PathArr[], int ArrLen, char **Path);
+void ConcatPath(char **Path, const char *NextName);
+void readFile(SOCKET Sock, char Path[], char *HTTPBuff);
+
+void putRequest(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff, int ReciveRes);
+
 void WriteInFile(FILE *Out, char *Buff, int Len);
-void DelFile(char *PathArr[], int ArrLen, SOCKET Sock);
-void HeadFile(char *PathArr[], int ArrLen, SOCKET Sock);
+void deleteRequest(char *PathArr[], int ArrLen, SOCKET Sock);
+void headRequest(char *PathArr[], int ArrLen, SOCKET Sock);
+
+int DelDir(char *Path);
+
+void CreateDir(char *PathArr[], int ArrLen, char **Path);
+void FileCopy(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff);

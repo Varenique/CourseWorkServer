@@ -10,16 +10,16 @@ void ProcessRequest(char *PathArr[], int ArrLen, TRequestType ReqType, SOCKET So
 	switch (ReqType)
 	{
 	case Put:
-		PutFile(PathArr, ArrLen, Sock, HTTPBuff, ReciveRes);
+		putRequest(PathArr, ArrLen, Sock, HTTPBuff, ReciveRes);
 		break;
 	case Get:
-		GetFile(PathArr, ArrLen, Sock, HTTPBuff);
+		getRequest(PathArr, ArrLen, Sock, HTTPBuff);
 		break;
 	case Delete:
-		DelFile(PathArr, ArrLen, Sock);
+		deleteRequest(PathArr, ArrLen, Sock);
 		break;
 	case Head:
-		HeadFile(PathArr, ArrLen, Sock);
+		headRequest(PathArr, ArrLen, Sock);
 		break;
 	}
 }

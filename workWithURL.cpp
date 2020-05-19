@@ -12,35 +12,55 @@ char *GetURL(char *BuffWithURl)
 	return Result;
 }
 
-char **ParseURL(char *BuffWithURl, int *Len)
+char **ParseURL(char *BuffWithURl, int *numberOfFolders)
 {
 	char *URL = GetURL(BuffWithURl);
 	if (strlen(URL) == 0)
 	{
 		/*if need to  show server root directory*/
 	}
+	int numberOfSymbol = 0, lastSymbol=0;
+	(*numberOfFolders) = URL_DEFAULT_ARR_LEN;
+	char **Result = (char**)malloc((*numberOfFolders) * sizeof(char*));
+	int i = 0, lengthOfName;
+	char *nextFolder = NULL;
+	//while (URL[numberOfSymbol] != NULL) {
+	//	
+	//	if (URL[numberOfSymbol] == '/') {
+	//		if (i == (*numberOfFolders)) {
+	//			(*numberOfFolders) = (*numberOfFolders) * 2 + 1;
+	//			Result = (char**)realloc(Result, (*numberOfFolders) * sizeof(char*));
+	//		}
+	//		int lengthOfFolder = numberOfSymbol - lastSymbol;
+	//		
+	//		Result[i] = (char*)malloc((lengthOfFolder) * sizeof(char));
+	//		strcpy_s(Result[i++], lengthOfFolder, URL[lastSymbol]);
+	//		i++;
+	//		lastSymbol = numberOfSymbol + 1;
+	//	}
+	//	numberOfSymbol++;
 
-	(*Len) = URL_DEFAULT_ARR_LEN;
-	char **Result = (char**)malloc((*Len) * sizeof(char*));
-	int i = 0, TokenLen;
-	char *NextToken = NULL;
-	char *Token = strtok_s(URL, URL_NAME_DELIMITER, &NextToken);
-	while (Token != NULL)
+	//}
+	//if (URL == nullptr) {
+	//	i = 0;
+	//}
+	char *folder = strtok_s(URL, URL_DELIMITER, &nextFolder);
+	while (folder != NULL)
 	{
-		if (i == (*Len))
+		if (i == (*numberOfFolders))
 		{
-			(*Len) = (*Len) * 2 + 1;
-			Result = (char**)realloc(Result, (*Len) * sizeof(char*));
+			(*numberOfFolders) = (*numberOfFolders) * 2 + 1;
+			Result = (char**)realloc(Result, (*numberOfFolders) * sizeof(char*));
 		}
-		TokenLen = strlen(Token);
-		Result[i] = (char*)malloc((TokenLen + 1) * sizeof(char));
-		strcpy_s(Result[i++], TokenLen + 1, Token);
+		lengthOfName = strlen(folder);
+		Result[i] = (char*)malloc((lengthOfName + 1) * sizeof(char));
+		strcpy_s(Result[i++], lengthOfName + 1, folder);
 
-		Token = strtok_s(NULL, URL_NAME_DELIMITER, &NextToken);
+		folder = strtok_s(NULL, URL_DELIMITER, &nextFolder);
 	}
 
-	(*Len) = i;
-	Result = (char**)realloc(Result, (*Len) * sizeof(char*));
+	(*numberOfFolders) = i;
+	Result = (char**)realloc(Result, (*numberOfFolders) * sizeof(char*));
 
 	free(URL);
 	return Result ;
