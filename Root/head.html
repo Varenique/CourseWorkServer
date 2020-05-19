@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>GET</title>
+		<title>Head</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -15,7 +15,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Запрос GET</a></h1>
+						<h1><a href="index.html">Запрос Head</a></h1>
 						<nav id="nav">
 							<ul>
 								<li class="special">
@@ -37,27 +37,34 @@
 				<!-- Main -->
 					<article id="main">
 						<header>
-							<h2>Страничка запросов GET</h2>
-							<p>С несколькими представителями ответов HTTP</p>
+							<h2>Head</h2>
+							<p>Запросы</p>
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
 
-								<h3>Чуть-чуть теории про GET</h3>
-								<p>Используется для запроса содержимого указанного ресурса. 
-								С помощью метода GET можно также начать какой-либо процесс.
-								В этом случае в тело ответного сообщения следует включить информацию о ходе выполнения процесса.</p>
+								<h3>Чуть-чуть теории про Head</h3>
+								<p>HTTP-метод HEAD запрашивает заголовки, идентичные тем, 
+								что возвращаются, если указанный ресурс будет запрошен с 
+								помощью HTTP-метода GET. Такой запрос может быть выполнен 
+								перед загрузкой большого ресурса, например, для экономии пропускной способности.
 
-								<p>Одним из способов, как можно отправить запрос по протоколу HTTP к серверу, 
-								является запрос методом GET. Этот метод является самым распространенным и запросы к серверу 
-								чаще всего происходят с его использованием.Самый простой способ, как можно создать запрос методом GET- это набрать URL-адрес в адресную строку браузера.</p>
+								Ответ на метод HEAD не должен содержать тело. Если это не так, 
+								то его следует игнорировать. Но даже в этом случае заголовки 
+								сущности, описывающие содержимое тела, например Content-Length,
+								должны быть включены в ответ. Они не относятся к телу ответа на 
+								запрос HEAD, которое должно быть пустым, они относятся к телу 
+								ответа, полученный на аналогичный запрос с помощью метода GET.
 
+								Если результат запроса HEAD показывает, что кешированный 
+								после запроса GET ресурс устарел, то кеш становится недействительным,
+								даже если запрос GET не был сделан.</p>
 								<hr />
 
 								<h4>Варианты ответов которые вы хотите увидеть после отправки запроса</h4>
-								<p>
 								<a onclick="do_put_request_200()" ><img src="/images/200.png" width="50" height="50" alt="200"> </a>
-								<a onclick="do_put_request_404()" ><img src="/images/404.png" width="50" height="50" alt="404"> </a></p>
+								<a onclick="do_put_request_404()" ><img src="/images/404.png" width="50" height="50" alt="404"> </a>
+								<a onclick="do_put_request_405()" ><img src="/images/405.png" width="50" height="50" alt="405"> </a></p>
 
 
 								
@@ -80,17 +87,19 @@
 			</div>
 
 		<!-- Scripts -->
-		
+		<script>
+		function do_put_request_405() {
+		fetch('http://127.0.0.1:8080/' + 230, {method: 'HEAD',}).then(res => console.log(res))
+		}</script>
 		<script>
 		function do_put_request_200() {
-		fetch('http://127.0.0.1:8080/' + 'get.html', {method: 'GET',}).then(res => console.log(res))
+		fetch('http://127.0.0.1:8080/' + 'head.html', {method: 'HEAD',}).then(res => console.log(res))
 		}</script>
 		<script>
 		function do_put_request_404() {
-		fetch('http://127.0.0.1:8080/'+'404.html' , {method: 'GET',}).then(res => console.log(res))
+		fetch('http://127.0.0.1:8080/varenik/' , {method: 'HEAD',}).then(res => console.log(res))
 		}</script>
-		
-		
+		</script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
