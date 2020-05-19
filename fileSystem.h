@@ -6,23 +6,17 @@
 
 #define PATH_FOR_SERVER_ROOT "./Root"
 #define PATH_DELIMITER "/"
-#define MSG_DIR_IS_EMPTY "Empty folder"
+#define MSG_IS_EMPTY "Empty folder"
 
 void checkOrCreateRoot();
-void getRequest(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff);
-void readDirectory(SOCKET Sock, char Path[]);
-BOOL isFile(char Name[]);
-void CreateFullPath(char *PathArr[], int ArrLen, char **Path);
-void ConcatPath(char **Path, const char *NextName);
-void readFile(SOCKET Sock, char Path[], char *HTTPBuff);
+void readDirectory(SOCKET clientSocket, char path[]);
+bool isFile(char name[]);
+void createFullPath(char *arrayOfPath[], int lengthOfPath, char **path);
+void concatPath(char **path, char *toAdd);
+void readFile(SOCKET clientSocket, char Path[], char *HTTPBuffer);
+void createDirectory(char *arrayOfPath[], int lengthOfPath, char **path);
 
-void putRequest(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff, int ReciveRes);
-
-void WriteInFile(FILE *Out, char *Buff, int Len);
-void deleteRequest(char *PathArr[], int ArrLen, SOCKET Sock);
-void headRequest(char *PathArr[], int ArrLen, SOCKET Sock);
-
-int DelDir(char *Path);
-
-void CreateDir(char *PathArr[], int ArrLen, char **Path);
-void FileCopy(char *PathArr[], int ArrLen, SOCKET Sock, char *HTTPBuff);
+void getRequest(char *arrayOfPath[], int lengthOfPath, SOCKET clientSocket, char *HTTPBuffer);
+void headRequest(char *arrayOfPath[], int lengthOfPath, SOCKET clientSocket);
+void putRequest(char *arrayOfPath[], int lengthOfPath, SOCKET clientSocket);
+void deleteRequest(char *arrayOfPath[], int lengthOfPath, SOCKET clientSocket);

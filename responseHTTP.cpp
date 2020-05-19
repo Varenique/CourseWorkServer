@@ -1,25 +1,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include "responseHTTP.h"
-#include "reciveHTTP.h"
 #include "requestHTTP.h"
 #include "fileSystem.h"
 
-void ProcessRequest(char *PathArr[], int ArrLen, TRequestType ReqType, SOCKET Sock, char *HTTPBuff, int ReciveRes)
+void getResponse(char *arrayOfPath[], int lengthOfPath, TRequestType typeOfRequest, SOCKET clientSocket, char *HTTPBuffer)
 {
-	switch (ReqType)
+	switch (typeOfRequest)
 	{
 	case Put:
-		putRequest(PathArr, ArrLen, Sock, HTTPBuff, ReciveRes);
+		putRequest(arrayOfPath, lengthOfPath, clientSocket);
 		break;
 	case Get:
-		getRequest(PathArr, ArrLen, Sock, HTTPBuff);
+		getRequest(arrayOfPath, lengthOfPath, clientSocket, HTTPBuffer);
 		break;
 	case Delete:
-		deleteRequest(PathArr, ArrLen, Sock);
+		deleteRequest(arrayOfPath, lengthOfPath, clientSocket);
 		break;
 	case Head:
-		headRequest(PathArr, ArrLen, Sock);
+		headRequest(arrayOfPath, lengthOfPath, clientSocket);
 		break;
 	}
 }

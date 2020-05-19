@@ -112,14 +112,14 @@
   <ItemGroup>
     <ClCompile Include="fileSystem.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="reciveHTTP.cpp" />
+    <ClCompile Include="processSystem.cpp" />
     <ClCompile Include="requestHTTP.cpp" />
     <ClCompile Include="responseHTTP.cpp" />
     <ClCompile Include="workWithURL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fileSystem.h" />
-    <ClInclude Include="reciveHTTP.h" />
+    <ClInclude Include="processSystem.h" />
     <ClInclude Include="requestHTTP.h" />
     <ClInclude Include="responseHTTP.h" />
     <ClInclude Include="workWithURL.h" />

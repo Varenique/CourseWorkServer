@@ -13,8 +13,9 @@ typedef enum _RequestType
 #define GET_REQUEST "GET"
 #define DELETE_REQUEST "DELETE"
 #define HEAD_REQUEST "HEAD"
-#define COPY_REQUEST "Copy-file-from"
 
-TRequestType GetRequestType(char *HTTPBuff);
+TRequestType getRequestType(char *HTTPBuffer);
+void findRequestType(char stringOfRequest[], PRequestType typeOfRequest);
+
 
 

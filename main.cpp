@@ -2,16 +2,14 @@
 #include <stdlib.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <ws2ipdef.h>
-#include <iphlpapi.h>
 #include <string>
 #include <vector>
 #include <thread>
-#include "reciveHTTP.h"
+#include "processSystem.h"
+#include "requestHTTP.h"
 #include "fileSystem.h"
 
 #pragma comment(lib, "ws2_32.lib")
-//#pragma comment (lib, "iphlpapi.lib")
 
 #define WORKING_BUFFER_SIZE 15000
 #define DEFAULT_PORT 8080
@@ -46,7 +44,7 @@ int main() {
 	addr.sin_family = AF_INET;													// задаем параметры. ѕоле sin_family определ€ет используемый формат адреса (набор протоколов), в нашем случае (дл€ TCP/IP) оно должно иметь значение AF_INET 
 	addr.sin_port = htons((USHORT)DEFAULT_PORT);									//ѕоле sin_port содержит номер порта на узле сети	
 	inet_pton(AF_INET, "127.0.0.1", &(addr.sin_addr));						//преобразуем строку в сетевой адрес
-							//ѕоле sin_addr содержит адрес (номер) узла сети.
+																				//ѕоле sin_addr содержит адрес (номер) узла сети.
 																				//ѕоле sin_zero не используетс€
 																				//—труктура SOCKADDR_IN должна быть полностью заполнена перед выдачей системного вызова bind. ѕри этом, если поле sin_addr.s_addr имеет значение INADDR_ANY, то системный вызов будет прив€зывать к socket'у номер (адрес) локального узла сети.
 
@@ -59,7 +57,7 @@ int main() {
 	resultOfFunction = listen(ListenSocket, SOMAXCONN);			//—истемный вызов listen выражает желание выдавшей его программы-сервера ожидать запросы к ней от программ-клиентов (дескриптор сокета + )
 													//јргумент n определ€ет максимальную длину очереди вход€щих запросов на установление св€зи. ≈сли какой-либо клиент выдаст запрос на установление св€зи при полной очереди, то этот запрос будет отвергнут.
 													//somaxconn ограничивает размер очереди дл€ приема новых TCP соединений. «начение по умолчанию 128
-	if (resultOfFunction != 0 /*== INVALID_SOCKET*/) {
+	if (resultOfFunction != 0) {
 
 		printf(" error = %d\n", WSAGetLastError());
 		WSACleanup();

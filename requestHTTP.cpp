@@ -1,51 +1,52 @@
 #include <stdlib.h>
 #include <string.h>
 #include "requestHTTP.h"
-#include "reciveHTTP.h"
+#include "processSystem.h"
 
-void DefineRequestType(char Req[], PRequestType ReqType)
-{
-	int Res;
-	Res = strcmp(Req, PUT_REQUEST);
-	if (Res == 0)
-	{
-		(*ReqType) = Put;
+
+void findRequestType(char stringOfRequest[], PRequestType typeOfRequest) {
+
+	int notEqual;
+	notEqual = strcmp(stringOfRequest, PUT_REQUEST);
+	if (notEqual == 0) {
+
+		(*typeOfRequest) = Put;
 		return;
 	}
 
-	Res = strcmp(Req, GET_REQUEST);
-	if (Res == 0)
-	{
-		(*ReqType) = Get;
+	notEqual = strcmp(stringOfRequest, GET_REQUEST);
+	if (notEqual == 0) {
+
+		(*typeOfRequest) = Get;
 		return;
 	}
 
-	Res = strcmp(Req, DELETE_REQUEST);
-	if (Res == 0)
-	{
-		(*ReqType) = Delete;
+	notEqual = strcmp(stringOfRequest, DELETE_REQUEST);
+	if (notEqual == 0) {
+
+		(*typeOfRequest) = Delete;
 		return;
 	}
 
-	Res = strcmp(Req, HEAD_REQUEST);
-	if (Res == 0)
-	{
-		(*ReqType) = Head;
+	notEqual = strcmp(stringOfRequest, HEAD_REQUEST);
+	if (notEqual == 0) {
+
+		(*typeOfRequest) = Head;
 		return;
 	}
 }
 
-TRequestType GetRequestType(char *HTTPBuff)
-{
+TRequestType getRequestType(char *HTTPBuffer) {
+
 	TRequestType Result = NotImplemented;
-	char *Tmp, *Req;
-	Tmp = strstr(HTTPBuff, HTTP_DELIMITER);
-	if (Tmp != NULL)
-	{
-		int Length = abs(Tmp - HTTPBuff);
-		Req = (char*)calloc(Length + 1, sizeof(char));
-		strncpy_s(Req, Length + 1, HTTPBuff, Length);
-		DefineRequestType(Req, &Result);
+	char *typePointerEnd, *stringOfRequest;
+	typePointerEnd = strstr(HTTPBuffer, HTTP_DELIMITER);
+	if (typePointerEnd != NULL) {
+
+		int length = abs(typePointerEnd - HTTPBuffer);
+		stringOfRequest = (char*)calloc(length + 1, sizeof(char));
+		strncpy_s(stringOfRequest, length + 1, HTTPBuffer, length);
+		findRequestType(stringOfRequest, &Result);
 	}
 	return Result;
 }
